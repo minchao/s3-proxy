@@ -1,7 +1,7 @@
 package s3proxy
 
 type BasicAuth interface {
-	authenticate(username string, password string) bool
+	authenticate(username, password string) bool
 }
 
 type SimpleBasicAuth struct {
@@ -9,7 +9,7 @@ type SimpleBasicAuth struct {
 	Password string
 }
 
-func (a SimpleBasicAuth) authenticate(username string, password string) bool {
+func (a *SimpleBasicAuth) authenticate(username, password string) bool {
 	if username == a.Username && password == a.Password {
 		return true
 	}
