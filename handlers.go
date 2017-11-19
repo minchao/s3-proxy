@@ -2,7 +2,6 @@ package s3proxy
 
 import (
 	"io"
-	"log"
 	"net/http"
 	"strconv"
 	"time"
@@ -65,8 +64,6 @@ func setHeader(w http.ResponseWriter, key, value string) {
 func BasicAuthHandler(next http.Handler, auth BasicAuth) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		username, password, ok := r.BasicAuth()
-
-		log.Println(r.BasicAuth())
 
 		if !ok {
 			unauthorized(w, r)
