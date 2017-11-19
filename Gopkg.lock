@@ -14,6 +14,18 @@
   version = "v1.32.0"
 
 [[projects]]
+  branch = "master"
+  name = "github.com/google/go-github"
+  packages = ["github"]
+  revision = "471e67c93cdd36a5f7c9bba5d6d11665ba12147d"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/google/go-querystring"
+  packages = ["query"]
+  revision = "53e6ce116135b80d037921a7fdd5138cf32d7a8a"
+
+[[projects]]
   name = "github.com/jmespath/go-jmespath"
   packages = ["."]
   revision = "0b12d6b5"
@@ -21,6 +33,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "d8225d5e405593d9eaf7d2d4bfc2cfa6d1a6a8987bf0b2203c509ce465aeb333"
+  inputs-digest = "6308cfcc665821a4e1c394794a0601a12ce78cd6d24acf694981391fcb4e4861"
   solver-name = "gps-cdcl"
   solver-version = 1
