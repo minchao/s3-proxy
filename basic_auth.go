@@ -9,8 +9,8 @@ type SimpleBasicAuth struct {
 	Password string
 }
 
-func (a *SimpleBasicAuth) authenticate(username, password string) bool {
-	if username == a.Username && password == a.Password {
+func (ba *SimpleBasicAuth) authenticate(username, password string) bool {
+	if username == ba.Username && password == ba.Password {
 		return true
 	}
 	return false
