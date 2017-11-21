@@ -2,9 +2,33 @@ package s3proxy
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/google/go-github/github"
 )
+
+func BasicAuthHandler(next http.Handler, auth BasicAuth) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		username, password, ok := r.BasicAuth()
+
+		if !ok {
+			unauthorized(w, r)
+			return
+		}
+
+		if !auth.authenticate(username, password) {
+			unauthorized(w, r)
+			return
+		}
+
+		next.ServeHTTP(w, r)
+	})
+}
+
+func unauthorized(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("WWW-Authenticate", `Basic realm="`+r.Host+`"`)
+	http.Error(w, "", http.StatusUnauthorized)
+}
 
 type BasicAuth interface {
 	authenticate(username, password string) bool
@@ -16,10 +40,7 @@ type SimpleBasicAuth struct {
 }
 
 func (ba *SimpleBasicAuth) authenticate(username, password string) bool {
-	if username == ba.Username && password == ba.Password {
-		return true
-	}
-	return false
+	return username == ba.Username && password == ba.Password
 }
 
 type GithubOrgAuth struct {
